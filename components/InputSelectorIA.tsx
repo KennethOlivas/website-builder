@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, FormItem, Form } from "@/components/ui/form";
+import { SignInButton } from "@clerk/nextjs";
 
 const formSchema = z.object({
   prompt: z.string().min(10).max(500).nonempty(),
@@ -22,7 +23,7 @@ const InputSelectorIA = () => {
   });
 
   const onClickSuggestion = (suggestion: string) => {
-    form.setValue("prompt", suggestion);
+    form.setValue("prompt", suggestion, { shouldValidate: true });
   };
 
   return (
@@ -49,10 +50,17 @@ const InputSelectorIA = () => {
               <Button variant="ghost" size="icon">
                 <ImagePlusIcon />
               </Button>
-
-              <Button size="icon" type="submit">
-                <ArrowUpIcon />
-              </Button>
+              <SignInButton mode="modal" forceRedirectUrl="/workspace">
+                <Button
+                  disabled={
+                    !form.formState.isValid || form.formState.isSubmitting
+                  }
+                  size="icon"
+                  type="submit"
+                >
+                  <ArrowUpIcon />
+                </Button>
+              </SignInButton>
             </div>
           </form>
         </Form>

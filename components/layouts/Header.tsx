@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { SignInButton } from "@clerk/nextjs";
 
 /**
  * Renders the global site header with site branding, primary navigation, and a "Get Started" call-to-action.
@@ -32,10 +33,18 @@ import { ArrowRight } from "lucide-react";
  */
 const Header = () => {
   return (
-    <header className="flex items-center justify-between p-4 shadow" role="banner">
+    <header
+      className="flex items-center justify-between p-4 shadow"
+      role="banner"
+    >
       {/* Site branding */}
       <Link href="/" className="flex items-center gap-2" aria-label="Home">
-        <Image src="/logo.svg" alt="Website Generator logo" width={35} height={35} />
+        <Image
+          src="/logo.svg"
+          alt="Website Generator logo"
+          width={35}
+          height={35}
+        />
         <span className="text-xl font-bold">Website Generator</span>
       </Link>
 
@@ -53,12 +62,12 @@ const Header = () => {
       </nav>
 
       {/* Call to action */}
-      <Button asChild>
-        <Link href="/get-started" aria-label="Get started">
+      <SignInButton mode="modal" forceRedirectUrl="/workspace">
+        <Button>
           <span>Get Started</span>
           <ArrowRight aria-hidden="true" />
-        </Link>
-      </Button>
+        </Button>
+      </SignInButton>
     </header>
   );
 };

@@ -9,6 +9,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, FormItem, Form } from "@/components/ui/form";
 import { SignInButton } from "@clerk/nextjs";
+import { Card } from "./ui/card";
 
 const formSchema = z.object({
   prompt: z.string().min(10).max(500).nonempty(),
@@ -27,7 +28,7 @@ const InputSelectorIA = () => {
   };
 
   return (
-    <div>
+    <Card className="px-4 bg-background">
       {/* input box */}
       <div className="w-full max-w-3xl p-5 border mt-5 rounded-2xl">
         <Form {...form}>
@@ -79,7 +80,7 @@ const InputSelectorIA = () => {
           </Button>
         ))}
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -33,7 +33,7 @@ import GetStarted from "../GetStarted";
 const Header = () => {
   return (
     <header
-      className="flex items-center justify-between p-4 shadow"
+      className="flex items-center justify-between p-4 shadow bg-background"
       role="banner"
     >
       {/* Site branding */}

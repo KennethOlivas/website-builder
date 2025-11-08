@@ -8,22 +8,42 @@ import { Textarea } from "@/components/ui/textarea";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, FormItem, Form } from "@/components/ui/form";
-import { SignInButton } from "@clerk/nextjs";
-
-const formSchema = z.object({
-  prompt: z.string().min(10).max(500).nonempty(),
-});
+import { SignInButton, useUser } from "@clerk/nextjs";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { promptSchema } from "@/schema/promptSchema";
+import useCreateProjectMutation from "@/api/projects/useCreateProjectMutation";
 
 const InputSelectorIA = () => {
+  const { mutateAsync: createProject, isPending } = useCreateProjectMutation();
+
+  const router = useRouter();
+  const user = useUser();
   const form = useForm({
     defaultValues: {
       prompt: "",
     },
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(promptSchema),
   });
 
   const onClickSuggestion = (suggestion: string) => {
     form.setValue("prompt", suggestion, { shouldValidate: true });
+  };
+
+  const createNewProject = async (data: z.infer<typeof promptSchema>) => {
+    try {
+      const res = await createProject({ prompt: data.prompt });
+  
+      // Handle success (e.g., navigate to the new project)
+      //navigate  to workspace playground
+      // router.push(
+      //   `/playground/${res.projectResult.projectId}?frameId=${res.frameResult.frameId}`
+      // );
+    } catch (error) {
+      toast.error("An error occurred while creating the project.");
+      console.error(error);
+      // Handle error (e.g., show a notification)
+    }
   };
 
   return (
@@ -31,7 +51,7 @@ const InputSelectorIA = () => {
       {/* input box */}
       <div className="w-full max-w-3xl p-5 border mt-5 rounded-2xl bg-background/70 backdrop-blur-md shadow-lg">
         <Form {...form}>
-          <form>
+          <form onSubmit={form.handleSubmit(createNewProject)}>
             <FormField
               control={form.control}
               name="prompt"
@@ -47,20 +67,34 @@ const InputSelectorIA = () => {
             />
 
             <div className="flex justify-between items-center mt-4">
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" disabled={isPending}>
                 <ImagePlusIcon />
               </Button>
-              <SignInButton mode="modal" forceRedirectUrl="/workspace">
-                <Button
-                  disabled={
-                    !form.formState.isValid || form.formState.isSubmitting
-                  }
-                  size="icon"
-                  type="submit"
-                >
-                  <ArrowUpIcon />
-                </Button>
-              </SignInButton>
+              {user.isSignedIn ? (
+                <>
+                  <Button
+                    disabled={
+                      !form.formState.isValid || form.formState.isSubmitting
+                    }
+                    size="icon"
+                    type="submit"
+                    isLoading={isPending}
+                    icon={<ArrowUpIcon />}
+                  />
+                </>
+              ) : (
+                <SignInButton mode="modal" forceRedirectUrl="/workspace">
+                  <Button
+                    disabled={
+                      !form.formState.isValid || form.formState.isSubmitting
+                    }
+                    size="icon"
+                    type="button"
+                    icon={<ArrowUpIcon />}
+                    isLoading={isPending}
+                  />
+                </SignInButton>
+              )}
             </div>
           </form>
         </Form>

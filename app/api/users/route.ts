@@ -2,7 +2,7 @@ import { db } from "@/config/db";
 import { usersTable } from "@/config/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 /**
  * Handles POST requests to create or fetch an application user based on the authenticated Clerk user.

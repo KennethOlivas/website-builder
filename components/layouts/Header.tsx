@@ -54,9 +54,11 @@ const Header = () => {
         <ul className="m-0 flex list-none gap-3 p-0">
           {MenuOptions.map((option, index) => (
             <li key={index}>
-              <Button variant="ghost" asChild>
-                <Link href={option.link}>{option.name}</Link>
-              </Button>
+              <Link href={option.link}>
+                <Button variant="ghost">
+                  {option.name}
+                </Button>
+              </Link>
             </li>
           ))}
         </ul>

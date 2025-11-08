@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-
+import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&>svg]:pointer-events-none [&>svg:not([class*='size-'])]:size-4 shrink-0 [&>svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
@@ -36,24 +36,46 @@ const buttonVariants = cva(
   },
 );
 
+type ButtonProps = React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+    isLoading?: boolean;
+    icon?: React.ReactElement<React.SVGProps<SVGSVGElement>>;
+    iconPosition?: "left" | "right";
+  };
+
 function Button({
   className,
   variant,
   size,
   asChild = false,
+  isLoading = false,
+  disabled,
+  children,
+  icon,
+  iconPosition = "left",
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button";
+  const showIcon = icon && !isLoading;
 
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size }),
+        isLoading && "cursor-progress",
+        className,
+      )}
+      disabled={disabled || isLoading}
+      aria-busy={isLoading || undefined}
       {...props}
-    />
+    >
+      {isLoading && <Spinner aria-hidden="true" />}
+      {!isLoading && iconPosition === "left" && showIcon && React.cloneElement(icon, { "aria-hidden": "true" })}
+      {children}
+      {!isLoading && iconPosition === "right" && showIcon && React.cloneElement(icon, { "aria-hidden": "true" })}
+    </Comp>
   );
 }
 

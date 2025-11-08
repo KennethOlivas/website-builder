@@ -3,6 +3,7 @@ import { UserDetailContext } from "@/context/UserDetailContext";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState, useEffectEvent } from "react";
 import { ThemeProvider } from "next-themes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { usersTable } from "@/config/schema";
 
@@ -15,6 +16,7 @@ const Provider = ({
 }>) => {
   const { user } = useUser();
   const [userDetail, setUserDetail] = useState<User>(null);
+  const [queryClient] = useState(() => new QueryClient());
 
   // Wrap state updates in an Effect Event to avoid synchronous setState in effect warnings.
   const createOrSyncUser = useEffectEvent(async () => {
@@ -39,21 +41,23 @@ const Provider = ({
   }, [user]);
 
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <UserDetailContext.Provider
-        value={{
-          userDetail,
-          setUserDetail,
-        }}
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
       >
-        {children}
-      </UserDetailContext.Provider>
-    </ThemeProvider>
+        <UserDetailContext.Provider
+          value={{
+            userDetail,
+            setUserDetail,
+          }}
+        >
+          {children}
+        </UserDetailContext.Provider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 

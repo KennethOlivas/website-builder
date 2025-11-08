@@ -9,7 +9,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, FormItem, Form } from "@/components/ui/form";
 import { SignInButton } from "@clerk/nextjs";
-import { Card } from "./ui/card";
+
 
 const formSchema = z.object({
   prompt: z.string().min(10).max(500).nonempty(),
@@ -28,9 +28,9 @@ const InputSelectorIA = () => {
   };
 
   return (
-    <Card className="px-4 bg-background">
+    <div>
       {/* input box */}
-      <div className="w-full max-w-3xl p-5 border mt-5 rounded-2xl">
+      <div className="w-full max-w-3xl p-5 border mt-5 rounded-2xl bg-background/70 backdrop-blur-md shadow-lg">
         <Form {...form}>
           <form>
             <FormField
@@ -47,7 +47,7 @@ const InputSelectorIA = () => {
               )}
             />
 
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mt-4">
               <Button variant="ghost" size="icon">
                 <ImagePlusIcon />
               </Button>
@@ -72,7 +72,7 @@ const InputSelectorIA = () => {
         {suggestions.map((suggestion, index) => (
           <Button
             key={index}
-            variant="outline"
+            variant="default"
             onClick={() => onClickSuggestion(suggestion.prompt)}
           >
             <suggestion.icon />
@@ -80,7 +80,7 @@ const InputSelectorIA = () => {
           </Button>
         ))}
       </div>
-    </Card>
+    </div>
   );
 };
 

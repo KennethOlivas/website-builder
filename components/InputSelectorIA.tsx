@@ -10,7 +10,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, FormItem, Form } from "@/components/ui/form";
 import { SignInButton } from "@clerk/nextjs";
 
-
 const formSchema = z.object({
   prompt: z.string().min(10).max(500).nonempty(),
 });

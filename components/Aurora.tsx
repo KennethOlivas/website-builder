@@ -147,7 +147,7 @@ export default function ColorBends({
     const geometry = new THREE.PlaneGeometry(2, 2);
     const uColorsArray = Array.from(
       { length: MAX_COLORS },
-      () => new THREE.Vector3(0, 0, 0)
+      () => new THREE.Vector3(0, 0, 0),
     );
     const material = new THREE.ShaderMaterial({
       vertexShader: vert,

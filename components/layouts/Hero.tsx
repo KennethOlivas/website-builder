@@ -1,6 +1,5 @@
 import InputSelectorIA from "../InputSelectorIA";
 
-
 const Hero = () => {
   return (
     <section className="relative flex flex-col items-center h-[90vh] justify-center px-4 md:px-0 overflow-hidden">

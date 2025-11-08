@@ -7,7 +7,7 @@ export default function Home() {
     <div>
       <ColorBends
         className="absolute top-0 left-0 w-full h-screen -z-10 overflow-hidden"
-        colors={["#ff5c7a", "#8a5cff", "#00ffd1"]}
+        colors={["#4f46e5", "#ec4899", "#0ea5e9"]}
         rotation={0}
         speed={0.2}
         scale={1}

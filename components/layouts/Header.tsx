@@ -35,7 +35,7 @@ import ToggleTheme from "../ToggleTheme";
 const Header = () => {
   return (
     <header
-      className="flex items-center justify-between p-4 shadow bg-background"
+      className="flex items-center justify-between p-4 shadow bg-background/40 backdrop-blur-md"
       role="banner"
     >
       {/* Site branding */}

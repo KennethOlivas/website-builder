@@ -2,6 +2,7 @@
 import { UserDetailContext } from "@/context/UserDetailContext";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState, useEffectEvent } from "react";
+import { ThemeProvider } from "next-themes";
 
 import { usersTable } from "@/config/schema";
 
@@ -38,14 +39,21 @@ const Provider = ({
   }, [user]);
 
   return (
-    <UserDetailContext.Provider
-      value={{
-        userDetail,
-        setUserDetail,
-      }}
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
     >
-      {children}
-    </UserDetailContext.Provider>
+      <UserDetailContext.Provider
+        value={{
+          userDetail,
+          setUserDetail,
+        }}
+      >
+        {children}
+      </UserDetailContext.Provider>
+    </ThemeProvider>
   );
 };
 

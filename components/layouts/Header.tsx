@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import GetStarted from "../GetStarted";
 
+import ToggleTheme from "../ToggleTheme";
+
 /**
  * Renders the global site header with site branding, primary navigation, and a "Get Started" call-to-action.
  *
@@ -60,7 +62,10 @@ const Header = () => {
         </ul>
       </nav>
 
-      <GetStarted />
+      <div className="flex items-center gap-2">
+        <ToggleTheme />
+        <GetStarted />
+      </div>
     </header>
   );
 };

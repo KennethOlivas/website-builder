@@ -1,1 +1,20 @@
-<svg fill="none" height="48" viewBox="0 0 37 48" width="37" xmlns="http://www.w3.org/2000/svg"><path d="m2 8.28551v11.99369c0 .3572.19058.6874.49995.866l10.38805 5.9983m-10.888-18.85799 10.8891 6.28549m-10.8891-6.28549 10.3838-5.9968c.3094-.17866.6905-.17872 1-.00017l10.3922 5.99697m-10.888 18.85799 10.888-6.287m-10.888 6.287.0011-12.5725m-.0011 12.5725v11.9936c0 .3573.1906.6874.5001.8661l10.389 5.9968m-10.8891-18.8565 10.8891 6.2855m-10.888-18.858 10.8869-6.28549m0 0v12.57099m0 0 10.8879 6.287m-10.8868 6.2855 10.8868-6.2855m-10.8868 6.2855v12.571m10.8868-18.8565v11.9936c0 .3573-.1906.6874-.5.8661l-10.3868 5.9968" stroke="#fff" stroke-linejoin="round" stroke-width="4"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<style>.cls-1{fill:#4285f4;}.cls-1,.cls-2,.cls-4{fill-rule:evenodd;}.cls-2{fill:#1e88e5;}.cls-3,.cls-4{fill:#aecbfa;}.cls-5{fill:#669df6;}</style>
+</defs>
+<title>Icon_24px_AIHub_Color</title>
+<g data-name="Product Icons">
+<polygon class="cls-1" points="20.69 12.43 12 16.78 12 22 20.69 17.65 20.69 12.43"/>
+<path class="cls-2" d="M6.78,4.61,3.31,6.35Z"/>
+<polygon class="cls-1" points="17.22 8.09 17.22 8.09 17.22 12.43 20.69 10.7 20.69 6.35 17.22 8.09"/>
+<polygon class="cls-1" points="12 15.04 15.48 13.31 15.48 8.96 15.48 8.96 12 10.7 12 15.04"/>
+<polygon class="cls-3" points="6.78 4.61 3.31 6.35 6.78 8.09 10.26 6.35 6.78 4.61"/>
+<polygon class="cls-4" points="12 2 8.52 3.74 12 5.48 17.22 8.09 20.69 6.35 12 2"/>
+<polygon class="cls-3" points="12 7.22 8.52 8.96 12 10.7 15.48 8.96 12 7.22"/>
+<path class="cls-5" d="M8.52,15v5.22L12,22V16.78Zm2.61,5.22-1.74-.87V16.78l1.74.87Z"/>
+<path class="cls-5" d="M3.31,6.35v11.3l3.47,1.74V8.09Zm2.61,11.3-1.75-.87v-10l1.75.87Z"/>
+<path class="cls-5" d="M8.52,9,12,10.7V15L8.52,13.31Zm2.61,4.35v-3L9.39,9.45v3Z"/>
+</g>
+</svg>

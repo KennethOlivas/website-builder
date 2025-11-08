@@ -40,8 +40,8 @@ const Provider = ({
   return (
     <UserDetailContext.Provider
       value={{
-        user: userDetail,
-        setUser: setUserDetail,
+        userDetail,
+        setUserDetail,
       }}
     >
       {children}

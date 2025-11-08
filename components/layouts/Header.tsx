@@ -2,8 +2,7 @@ import { MenuOptions } from "@/constant/menu";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import { SignInButton } from "@clerk/nextjs";
+import GetStarted from "../GetStarted";
 
 /**
  * Renders the global site header with site branding, primary navigation, and a "Get Started" call-to-action.
@@ -61,13 +60,7 @@ const Header = () => {
         </ul>
       </nav>
 
-      {/* Call to action */}
-      <SignInButton mode="modal" forceRedirectUrl="/workspace">
-        <Button>
-          <span>Get Started</span>
-          <ArrowRight aria-hidden="true" />
-        </Button>
-      </SignInButton>
+      <GetStarted />
     </header>
   );
 };

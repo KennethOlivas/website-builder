@@ -67,7 +67,7 @@ const InputSelectorIA = () => {
       </div>
 
       {/* Suggestions */}
-      <div className="mt-4 flex gap-3 flex-wrap justify-center">
+      <div className="mt-4 flex gap-3 flex-wrap justify-center max-w-3xl mx-auto">
         {suggestions.map((suggestion, index) => (
           <Button
             key={index}

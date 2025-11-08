@@ -1,3 +1,9 @@
+import Hero from "@/components/layouts/Hero";
+
 export default function WorkspacePage() {
-  return <div>Welcome to your workspace!</div>;
+  return (
+    <div>
+      <Hero />
+    </div>
+  );
 }

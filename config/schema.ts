@@ -2,10 +2,12 @@ import {
   integer,
   json,
   pgTable,
+  text,
   timestamp,
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
+import { fr } from "zod/v4/locales";
 
 export const usersTable = pgTable("users", {
   id: uuid().defaultRandom().primaryKey(),
@@ -26,6 +28,7 @@ export const projectTable = pgTable("projects", {
 export const frameTable = pgTable("frames", {
   id: uuid().defaultRandom().primaryKey(),
   frameId: uuid().unique(),
+  designCore: text(),
   projectId: uuid().references(() => projectTable.projectId),
   createdOn: timestamp().defaultNow().notNull(),
 });
@@ -33,6 +36,7 @@ export const frameTable = pgTable("frames", {
 export const chatTable = pgTable("chats", {
   id: uuid().defaultRandom().primaryKey(),
   chatMessages: json(),
+  frameId: uuid().references(() => frameTable.frameId),
   createdBy: varchar()
     .references(() => usersTable.email)
     .notNull(),

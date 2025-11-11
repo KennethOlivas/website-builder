@@ -18,7 +18,7 @@ export default async function Playground({ params, searchParams }: Props) {
       <PlaygroundHeader />
 
       <div className="flex p-4">
-        <ChatSection />
+        <ChatSection frameId={frameId!} projectId={projectId} />
         <WebsiteDesign />
         {/* <ElementSettingSection /> */}
       </div>

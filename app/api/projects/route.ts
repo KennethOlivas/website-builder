@@ -2,6 +2,7 @@ import { db } from "@/config/db";
 import { chatTable, frameTable, projectTable } from "@/config/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextRequest } from "next/server";
+import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(request: NextRequest) {
   const { messages } = await request.json();
@@ -16,17 +17,22 @@ export async function POST(request: NextRequest) {
     return new Response("User email not found", { status: 400 });
   }
 
+  const projectId = uuidv4();
+  const frameId = uuidv4();
+
   const [projectResult] = await db
     .insert(projectTable)
     .values({
       createdBy: userEmail,
+      projectId,
     })
     .returning();
 
   const [frameResult] = await db
     .insert(frameTable)
     .values({
-      projectId: projectResult.projectId,
+      projectId,
+      frameId,
     })
     .returning();
 

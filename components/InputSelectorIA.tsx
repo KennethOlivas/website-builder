@@ -16,7 +16,6 @@ import useCreateProjectMutation from "@/api/projects/useCreateProjectMutation";
 
 const InputSelectorIA = () => {
   const { mutateAsync: createProject, isPending } = useCreateProjectMutation();
-
   const router = useRouter();
   const user = useUser();
   const form = useForm({
@@ -33,7 +32,7 @@ const InputSelectorIA = () => {
   const createNewProject = async (data: z.infer<typeof promptSchema>) => {
     try {
       const res = await createProject({ prompt: data.prompt });
-  
+      console.log("Project created:", res);
       // Handle success (e.g., navigate to the new project)
       //navigate  to workspace playground
       // router.push(
@@ -67,15 +66,18 @@ const InputSelectorIA = () => {
             />
 
             <div className="flex justify-between items-center mt-4">
-              <Button variant="ghost" size="icon" disabled={isPending}>
+              <Button
+                variant="ghost"
+                size="icon"
+                disabled={isPending}
+                type="button"
+              >
                 <ImagePlusIcon />
               </Button>
               {user.isSignedIn ? (
                 <>
                   <Button
-                    disabled={
-                      !form.formState.isValid || form.formState.isSubmitting
-                    }
+                    disabled={!form.formState.isValid}
                     size="icon"
                     type="submit"
                     isLoading={isPending}
@@ -85,9 +87,7 @@ const InputSelectorIA = () => {
               ) : (
                 <SignInButton mode="modal" forceRedirectUrl="/workspace">
                   <Button
-                    disabled={
-                      !form.formState.isValid || form.formState.isSubmitting
-                    }
+                    disabled={!form.formState.isValid}
                     size="icon"
                     type="button"
                     icon={<ArrowUpIcon />}

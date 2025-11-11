@@ -35,9 +35,9 @@ const InputSelectorIA = () => {
       console.log("Project created:", res);
       // Handle success (e.g., navigate to the new project)
       //navigate  to workspace playground
-      // router.push(
-      //   `/playground/${res.projectResult.projectId}?frameId=${res.frameResult.frameId}`
-      // );
+      router.push(
+        `/playground/${res.projectResult.projectId}?frameId=${res.frameResult.frameId}`
+      );
     } catch (error) {
       toast.error("An error occurred while creating the project.");
       console.error(error);

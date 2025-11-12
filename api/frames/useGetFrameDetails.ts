@@ -1,4 +1,9 @@
+import {
+  getProjectFrameDetailsSchema,
+  getProjectFrameDetailsSchemaType,
+} from "@/schema/queries/getProjectFrameDetailsSchema";
 import { useQuery } from "@tanstack/react-query";
+
 
 type Params = {
   frameId: string;
@@ -6,7 +11,7 @@ type Params = {
 };
 
 const useGetFrameDetails = (params: Params) => {
-  const query = useQuery({
+  const query = useQuery<getProjectFrameDetailsSchemaType>({
     queryKey: ["frameDetails", params],
     queryFn: async () => {
       // fetch to /api/frames/
@@ -19,7 +24,7 @@ const useGetFrameDetails = (params: Params) => {
           },
         }
       );
-      return    response.json();
+      return getProjectFrameDetailsSchema.parseAsync(await response.json());
     },
     enabled: !!params.frameId,
   });

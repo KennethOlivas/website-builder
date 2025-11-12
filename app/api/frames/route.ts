@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
 
   const finalResult = {
     ...frameResult[0],
-    chatMessages: chatResult[0]?.chatMessages ,
+    chatMessages: chatResult[0]?.chatMessages || [],
   };
 
   return NextResponse.json(finalResult);

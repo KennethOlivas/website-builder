@@ -1,14 +1,15 @@
 "use client";
 
 import useGetFrameDetails from "@/api/frames/useGetFrameDetails";
-import { cn } from "@/lib/utils";
+import useGenerateContentMutation from "@/api/ai-model/useGenerateContentMutation";
 import { Message, MessageAvatar, MessageContent } from "../ui/message";
-import { ArrowUpIcon, Bot, ImagePlusIcon } from "lucide-react";
+import { ArrowUpIcon, ImagePlusIcon } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { Form, FormField, FormItem } from "../ui/form";
 import { Textarea } from "../ui/textarea";
+import { toast } from "sonner";
 
 type ChatSectionProps = {
   frameId: string;
@@ -18,6 +19,7 @@ type ChatSectionProps = {
 export default function ChatSection({ frameId, projectId }: ChatSectionProps) {
   const { user } = useUser();
   const { data } = useGetFrameDetails({ frameId, projectId });
+  const { mutate: generateContent, isPending } = useGenerateContentMutation();
 
   const form = useForm({
     defaultValues: {
@@ -27,6 +29,24 @@ export default function ChatSection({ frameId, projectId }: ChatSectionProps) {
 
   const messages = data?.chatMessages || [];
   console.log("Frame details data:", data);
+
+  const onSubmit = (formData: { prompt: string }) => {
+    if (!formData.prompt.trim()) {
+      toast.error("Please enter a prompt");
+      return;
+    }
+
+    generateContent(
+      { prompt: formData.prompt },
+      {
+        onSuccess: (response) => {
+          console.log("Generated content:", response.text);
+          toast.success("Content generated successfully!");
+          form.reset();
+        },
+      }
+    );
+  };
 
   return (
     <div className="w-96 shadow h-[92vh] flex flex-col">
@@ -48,7 +68,7 @@ export default function ChatSection({ frameId, projectId }: ChatSectionProps) {
 
       <div className="p-4 border-t flex items-center gap-2 w-full">
         <Form {...form}>
-          <form>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="prompt"
@@ -58,6 +78,7 @@ export default function ChatSection({ frameId, projectId }: ChatSectionProps) {
                     {...field}
                     placeholder="Describe your page design..."
                     className="w-full resize-none h-24 flex-1"
+                    disabled={isPending}
                   />
                 </FormItem>
               )}
@@ -67,18 +88,17 @@ export default function ChatSection({ frameId, projectId }: ChatSectionProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                // disabled={isPending}
+                disabled={isPending}
                 type="button"
               >
                 <ImagePlusIcon />
               </Button>
 
               <Button
-                disabled={!form.formState.isValid}
+                disabled={!form.formState.isValid || isPending}
                 size="icon"
-                type="button"
+                type="submit"
                 icon={<ArrowUpIcon />}
-                // isLoading={isPending}
               />
             </div>
           </form>
